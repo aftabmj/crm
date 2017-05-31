@@ -69,7 +69,7 @@ in rep_title varchar(50))*/
             }
         
         this.waitingForDataTransfer =true;
-        this.http.fetch("branch_address/", {
+        this.http.fetch("a/", {
             method: "post",
             body: json({
                 bank_id:parseInt(this.selectedBankId), //assumption (see comment on top)
