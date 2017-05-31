@@ -1,0 +1,30 @@
+<template>
+    <!--<a href="javascript:void(0);" click.delegate="login()" if.bind="!userLoggedIn">Login via Google</a>
+    <a href="javascript:void(0);" click.delegate="logout()" if.bind="userLoggedIn">Logout</a>
+
+    <div class="profile">
+        <h1>${user.displayName}</h1>
+        <h2>${user.email}</h2>
+        <img src.bind="user.photoURL" if.bind="user.photoURL">
+    </div>
+    
+    
+    http://stackoverflow.com/questions/38190212/nav-items-with-bind-not-showing-after-navigating-to-route
+    <nav-bar router.bind="router" is-authenticated.bind="isAuthenticated"></nav-bar>
+    
+    -->
+    
+     <nav>
+      <ul>
+         <li repeat.for = "row of router.navigation">
+            <a href.bind = "row.href">${row.title}</a>
+         </li>
+
+      </ul> 
+    </nav>
+  <router-view></router-view> 
+ 
+</template>
+            <!-- We can call the logout() method directly from the AuthService. -->
+
+         <!--<li><a href="#" click.delegate="auth.logout()">Log Out</a></li>-->

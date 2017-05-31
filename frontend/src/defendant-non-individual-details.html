@@ -1,0 +1,91 @@
+<template>
+   
+
+ <div class="ui main container">
+
+    <form class='ui form' submit.delegate="saveDefendant()">
+        <p>
+            <div class="inline fields">
+            <label>Select the type of defendant</label>
+              <label repeat.for="option of financial_role_options">
+                    <input class="ui radio checkbox" type="radio" model.bind="option"
+                    checked.bind="$parent.financial_role_selected_option"/>
+                ${option.text}
+              </label>
+            </div>
+        </p>
+        <br/>
+    <div class="field">
+     <div class="four fields">
+         <div class="four wide field">
+            <label for="orgopt"> Type of Organisation</label>
+            <select name="orgopt" value.bind="selectedGroupTypeId"  change.delegate="groupTypeChanged()" >
+                <option value="0">Choose Org. Type</option>
+                <option repeat.for="option of group_type_options" 
+                        model.bind="option.id">${option.text}</option>
+            </select>
+         </div>
+        <div class="four wide field">
+            <label>Organisation Name</label>
+            <b>
+                <input type="text" value.bind="niD.bank_name" placeholder="Organisation Name">
+             </b>
+        </div>
+        <div class="four wide field">
+            <label>Rep. Title</label>
+            <select value.bind="niD.rep_type_id" > <!-- change.delegate="groupTypeChanged()" -->
+                <option value="0">Rep.Type</option>
+                <option repeat.for="rep_type of rep_types" 
+                        model.bind="rep_type.id">${rep_type.name}</option>
+            </select>
+         </div>
+        <div class="four wide field">
+            <label>Representative Name</label>
+                <input type="text" value.bind="niD.rep_name" placeholder="Representative Name">
+        </div>
+     </div>
+    </div>  
+      <p><br/></p>
+       <div class="field">
+        <label>Address Details</label>
+        <div class="two fields">
+          <!--<div class="eight wide field">-->
+          <div class="field">
+            <input type="text" value.bind="niD.line1" placeholder="Address Line 1">
+          </div>
+          <div class="field">
+            <input type="text" value.bind="niD.line2" placeholder="Address Line 2">
+          </div>
+        </div>
+      </div>
+      <div class="three fields">
+           <!-- <div class="one wide field"></div> -->
+            <div class="six wide field">
+              <input type="text" value.bind="niD.suburb" name="suburb" placeholder="Suburb / Area">
+            </div>
+            <div class="six wide field">
+                
+              <select class="ui fluid dropdown" value.bind="niD.city" name="city">
+                <option value="0">Choose City</option>
+                    <option value="Chennai">Chennai</option>
+                    <option value="Cuddalore">Cuddalore</option>
+                    <option value="Anguchettipalayam">Anguchettipalayam</option>
+              </select>
+            </div>
+            <div class="four wide field">
+                <input type="text" value.bind="niD.pincode" placeholder="pin code">
+            </div>
+            <!-- <div class="one wide field"></div> -->
+      </div>
+     <p></p>
+    <button class="${ waitingForDataTransfer ? 'ui basic loading button' :'ui button'}"
+                    type="submit" id='saveForm' disabled.bind="!canSave">Save Details</button>
+        
+        <button  class="ui button"   click.delegate="resetForm()" >Reset Form</button>
+ 
+    </form>
+ 
+ </div> 
+ 
+                
+</template>

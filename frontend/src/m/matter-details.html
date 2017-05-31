@@ -1,0 +1,75 @@
+<template>
+    
+    <div class="main container">
+
+        <div class="ui segment">
+          <h3>
+            <div class="ui left floated teal header">${applicants[0].bank}</div>
+            <div class="ui center aligned header">Vs.</div> 
+            <div class="ui right floated teal header">${ typeof(defendants[0].company_name) ==="undefined" ? defendants[0].full_name : defendants[0].company_name}</div>
+          </h3>
+        </div>                
+        <div class="ui segment">
+          <h3>
+            <div class="ui center floated teal header">${applicants[0].bank}  Vs. ${ typeof(defendants[0].company_name) ==="undefined" ? defendants[0].full_name : defendants[0].company_name}
+            </div>
+          </h3>
+        </div> 
+            
+        <div class="ui one column centered grid">
+            <div class="column">
+                <table class="ui purple table striped table">
+                    <tr>
+                        <td>Case Id (SR or OA Number)</td> <td> <b>${matter_details[0].sr_oa_num}</b> </td>
+                    </tr>
+                    <tr> <td>Case Status </td> <td><b>${matter_details[0].status}</b></td> </tr>
+                    <tr> <td>O.A. Date </td> <td><b>${matter_details[0].oa_date}</b></td> </tr>
+                    <tr> <td>Filed Date </td> <td><b>${matter_details[0].filed_on_date}</b></td> </tr>
+                  
+                </table>
+            </div>
+          </div>
+         <p><h4 class="ui dividing teal header">Applicant</h4></p> 
+         
+         <div class="ui list">
+             <div class="item" repeat.for="a of applicants">
+                 Bank Name : <b>${a.bank}</b><br/>
+                 Branch Name : ${a.branch_name} <br/>
+                 Rep. Title : ${a.rep_title}<br/>
+                 <p></p>
+                     <b>Business Address</b><br/>
+                     ${a.line1} <br/>
+                     ${a.line2} <br/>
+                     ${a.city_zip} <br/>
+                
+            </div>
+         </div>
+             
+         <p><h4 class="ui dividing teal header">Defendant${defendants.length >1 ? "s" :""}</h4></p>
+             <div class="ui grid">
+             <div class="eight wide column" repeat.for="d of defendants">
+                 ${$index+1}.  ${d.financial_role == 'B' ? "Borrower" : "Guarantor"} <br/>
+                 <div if.bind="d.company_name" class="ui segment">
+                     <b>${d.company_name}</b> (<i>${d.company_type}</i>)<br/>
+                     Represented By : ${d.rep_name}<br/>
+                     <p> </p>
+                         <b>Business Address</b><br/>
+                         ${d.line1} <br/>
+                         ${d.line2} <br/>
+                         ${d.city_zip} <br/>
+                </div>
+                <div if.bind="d.relative_name" class="ui segment">
+                     <b>${d.def_name}</b> <br/>
+                     ${d.relative_type} ${d.relative_name}<br/>
+                     <p> </p>
+                         <b>Address</b><br/>
+                         ${d.line1} <br/>
+                         ${d.line2} <br/>
+                         ${d.city_zip} <br/>
+                </div>
+            </div> <!-- item -->
+         </div> <!-- item list -->
+        
+    </div> <!-- main container -->
+            
+</template>

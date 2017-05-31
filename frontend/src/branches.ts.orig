@@ -1,0 +1,21 @@
+import {inject} from 'aurelia-framework';
+import {Endpoint, Rest} from 'aurelia-api';
+
+@inject(Endpoint.of('api'))
+export class Branches {
+  heading = 'Branches';
+  branches = [];
+  publicApi: Rest;
+
+  constructor(rest: Rest) {
+    this.publicApi = rest;
+  }
+
+  activate() {
+      //get all the branches for this bank :1
+    return this.publicApi.find('branch_address', 1)
+      .then(branches => this.branches = branches);
+    //return this.publicApi.find('branch_address', {filter: '{"include": "1"}'})
+     // .then(branches => this.branches = branches);
+  }
+}

@@ -1,0 +1,107 @@
+<template>
+
+<!--    <form class="ui form">
+    
+    <div class="ui fluid multiple search selection dropdown">
+        <input name="tags" type="hidden" value="">
+        <i class="dropdown icon"></i>
+        <input class="search" autocomplete="off" tabindex="0">
+        <span class="sizer"></span>
+        <div class="default text">Skills</div>
+        <div class="menu transition hidden" tabindex="-1">
+          <div class="item selected" data-value="angular">Angular</div>
+                <div class="item" data-value="css">CSS</div>
+                <div class="item" data-value="design">Graphic Design</div>
+                <div class="item" data-value="ember">Ember</div>
+                <div class="item" data-value="html">HTML</div>
+                <div class="item" data-value="ia">Information Architecture</div>
+                <div class="item" data-value="javascript">Javascript</div>
+        </div>
+      </div>
+    </form>-->
+  <div class="ui main container">
+    <form class="ui form raised very padded text container segment" submit.delegate="saveDefendant()">
+   <div class="ui fluid multiple search selection dropdown">
+        <input name="tags" type="hidden" value="">
+        <i class="dropdown icon"></i>
+        <input class="search" autocomplete="off" tabindex="0">
+            <span class="sizer"></span><div class="default text">Skills</div>
+        <div class="menu transition hidden" tabindex="-1">
+          <div class="item selected" data-value="angular">Angular</div>
+            <div class="item active filtered" data-value="css">CSS</div>
+            <div class="item" data-value="design">Graphic Design</div>
+            <div class="item active filtered" data-value="ember">Ember</div>
+            <div class="item active filtered" data-value="html">HTML</div>
+            <div class="item" data-value="ia">Information Architecture</div>
+            <div class="item" data-value="javascript">Javascript</div>
+            <div class="item" data-value="mech">Mechanical Engineering</div>
+
+      </div>
+</div>
+      
+    <p>  <h3> Defendant details</h3></p>
+           <section>
+
+                            <p>If not individual, please  select type of Defendant</br>
+                            <a href="defendant-non-individual.html">Go to non-individual page</a>
+                            </p>
+                            <input type="text" id="fName" value="" placeholder="defendant first name">   
+                            <input type="text" id="lName" value="" placeholder="defendant last  name">  <br/>
+                        </p>
+                            Would like to add father's/ spouse's name ? <br/>
+                            <input type="text" id="lName" value="" placeholder="defendant father's name">  
+                            <input type="text" id="lName" value="" placeholder="defendant spouse's name">  
+                        </p>
+                        <p>
+                            <input type="text" id="line1" value="" placeholder="defendant address line 1">    <br/>
+                            <input type="text" id="line2" value="" placeholder="defendant address line 2 "> <br/>
+                            <input type="text" id="city" value="" placeholder="defendant city">    <br/>
+                            <input type="text" id="zip" value="" placeholder="defendant pin code"> <br/>
+
+                        </p>
+			<!--<p>
+			   Defendant's nature of activity (relevant paragraph 5.2) <br/>
+				<input type="text" id="line1" size=80 value="" placeholder="E.g : Agriculture / Manufacturing of auto parts">    <br/>
+		
+
+			</p>
+			<p>
+			   Loan Application Date <br/>
+				<input type="date" id="date_exec" value='2016-12-31'/>   <br/>
+			</p>-->
+
+        <table cellpadding=10 cellspacing=20>
+            <tr>
+                <td><button>Click to Add another individual defendant </button></td>
+                <td></td>
+                <td><button class='button-bar'  type="submit" disabled.bind="!canSave"> Submit </button></td>
+             </tr>
+            </table>
+                </section>
+
+  
+            
+
+           <!--    <p>next :</p>
+                <template>
+        
+    
+    
+                  <require from="./address.html"></require>
+    
+                  <address line1=${chosenBranch.line1}
+                          line2=${chosenBranch.line2}
+                          city=${chosenBranch.city}
+                          state=${chosenBranch.state}
+                          pincode=${chosenBranch.pincode}>
+                      
+                  </address>
+                          
+                 </template> -->
+                
+        </p>
+        
+  </form>
+    </div>  <!-- main container -->
+
+</template>

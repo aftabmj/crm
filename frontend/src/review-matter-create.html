@@ -1,0 +1,152 @@
+<template>
+  <!--  <require from="./resources/elements/non-individual-details" ></require> -->
+    
+    <div class="main container">
+           
+    
+        <!--<li repeat.for="row of router.navigation">
+          <a href.bind="row.href">${row.title}</a>
+        </li>-->
+        <div if.bind="app.additionalRoutes">
+            <ul>
+              <li repeat.for="ro of app.additionalRoutes">
+                <a href.bind="ro.href">${ro.title}</a>
+              </li>
+            </ul>
+        </div>
+        <!--
+          <div class="loader pull-right" data-bind="css: { active: router.isNavigating }">
+                <i class="icon-spinner icon-2x icon-spin"></i>
+            </div> -->
+        
+        <h3 >Review Applicant and Defendant details</h3>
+
+         <p align="right"><h4 class="ui dividing header">Applicant(s)</h4></p> 
+         
+        <!-- <non-individual-details model.bind="defendant" repeat.for="applicant of applicants">
+         </non-individual-details>
+         -->
+        <div class="ui list" repeat.for="applicant of applicants">
+         <div class="${($index-1) %2 ==0 ? 'ui two column grid' : '' }">
+           <div class="column">
+           <label for="cb_${$index}" class.bind="cardClass" mouseenter.trigger="showCheckbox(this)">
+                    <div class="header"> 
+                        <div class="ui right floated" > 
+                            <i class="remove icon" click.trigger="deleteCardApplicant(applicant)"></i>
+                        </div>
+                        <h3 class="ui left floated">
+                           ${applicant.bank_name} - ${applicant.address_name}
+                            <div class="meta">Lender</div> 
+                        </h3>
+                        <div class="meta">Rep: ${applicant.rep_title} 
+                            ${applicant.rep_first_name} ${applicant.rep_middle_name}
+                            ${applicant.rep_last_name}
+                        </div>
+                    </div> <p></p>
+                
+                    <div class="description"> Address:
+                    ${applicant.address_name}<br/>
+                     ${applicant.line1}<br/>
+                     ${applicant.line2}, ${applicant.suburb}<br/>
+                     ${applicant.city} - ${applicant.pincode}
+                     ${applicant.state} <br/>
+                    </div>
+
+                 <br/>
+                  <div class="extra content">
+                      Select if part of the Matter.
+                      <div class="right floated">
+                     <input id="cb_${$index}"  type="checkbox" class.bind='checkboxClass' 
+                        checked.bind="applicant.isChosenForMatter"/>
+                     </div>
+                 </div> 
+            </label> <!--class.bind='checkboxClass'-->
+            </div> <!-- column -->
+            </div> <!-- two column grid -->
+        </div> <!-- applicants loop-->
+        <p></p>
+        
+        <p align="right"><h4 class="ui dividing header">Defendant(s)</h4> </p>
+       <div class="ui list cards" repeat.for="defendant of defendants_i">
+            <label for='${$index}_cbd' class.bind="cardClass" mouseenter.trigger="showCheckbox(this)">
+                    <div class="header">
+                        <div class="ui right floated" > <i class="remove icon" click.trigger="deleteCardDefendant(defendant)"></i></div>
+                        <h3 class="ui left floated">${defendant.first_name} ${defendant.middle_name} ${defendant.last_name}
+                            <div class="meta">
+                              ${defendant.financial_role == 'B' ? "Borrower" : "Guarantor"}
+                            </div>
+                        </h3>
+                    </div>
+                    <p></p>
+                    <div class="description">
+                     ${defendant.relative_type.localCompare("father") == 0  ? "Son of" : "Wife of"}     :  ${defendant.relative_name}<br/>
+                     Address <br/>
+                     ${defendant.line1}<br/>
+                     ${defendant.line2}, ${defendant.suburb}<br/>
+                     ${defendant.city} -  ${defendant.pincode}
+                     ${defendant.state}<br/>
+                    </div>
+
+                 <br/>
+                  <div class="extra content">
+                      Select if part of the Matter.
+                      <div class="right floated">
+                     <input id="${$index}_cbd"  type="checkbox" class.bind='checkboxClass' 
+                                checked.bind="defendant.isChosenForMatter" />
+                     </div>
+                 </div>
+            </label>
+        </div> 
+
+
+        <div class="ui list" repeat.for="d_n of defendants_n">
+         <div class="${($index-1) %2 ==0 ? 'ui two column grid' : '' }">
+           <div class="column">
+           <label for="cbdn_${$index}" class.bind="cardClass" mouseenter.trigger="showCheckbox(this)">
+                    <div class="header"> 
+                        <h3> ${d_n.bank_name} - ${d_n.address_name}
+                            <div class="meta">
+                              ${d_n.financial_role == 'B' ? "Borrower" : "Guarantor"}
+                            </div> 
+                        </h3>
+                        <div class="meta">Rep: ${d_n.rep_title} 
+                            ${d_n.rep_first_name} ${d_n.rep_middle_name}
+                            ${d_n.rep_last_name}
+                        </div>
+                    </div> <p></p>
+                
+                    <div class="description"> Address:
+                    ${d_n.address_name}<br/>
+                     ${d_n.line1}<br/>
+                     ${d_n.line2}, ${d_n.suburb}<br/>
+                     ${d_n.city} - ${d_n.pincode}
+                     ${d_n.state} <br/>
+                    </div>
+
+                 <br/>
+                  <div class="extra content">
+                      Select if part of the Matter.
+                      <div class="right floated">
+                     <input id="cbdn_${$index}"  type="checkbox" class.bind='checkboxClass' 
+                        checked.bind="d_n.isChosenForMatter"/>
+                     </div>
+                 </div> 
+            </label> <!--class.bind='checkboxClass'-->
+            </div> <!-- column -->
+            </div> <!-- two column grid -->
+        </div> <!-- applicants loop-->
+
+
+
+        
+        
+        <form class="ui form" submit.delegate="createMatter()">
+            <button class="${ waitingForDataTransfer ? 'ui basic loading button' :'ui button'}"
+                    type="submit" id='saveForm' disabled.bind="!canSave">Create Case</button>
+            
+        </form>
+    </div>
+    
+ 
+
+</template>

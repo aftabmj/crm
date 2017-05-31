@@ -1,0 +1,38 @@
+export class SuggestionService {
+  constructor(model, countries) {
+    this.model = model;
+    this.countryIndex = countries;
+    this.countries = Object.keys(countries);
+  }
+  
+  country = {
+    suggest: value => {
+      if (value === '') {
+        return Promise.resolve([]);
+      }
+      value = value.toLowerCase();
+      const suggestions = this.countries
+        .filter(x => x.toLowerCase().indexOf(value) === 0)
+        .sort();
+      return Promise.resolve(suggestions);
+    },
+  
+    getName: suggestion => suggestion
+  };
+  
+  city = {
+    suggest: value => {
+      if (value === '' || this.model.country === null) {
+        return Promise.resolve([]);
+      }
+      value = value.toLowerCase();
+      let suggestions = this.countryIndex[this.model.country]
+        .filter(x => x.toLowerCase().indexOf(value) === 0);
+      suggestions = suggestions.filter((x, i) => suggestions.indexOf(x) === i)
+        .sort();
+      return Promise.resolve(suggestions);
+    },
+  
+    getName: suggestion => suggestion
+  };
+}

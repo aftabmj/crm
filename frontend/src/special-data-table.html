@@ -1,0 +1,67 @@
+<template>
+  <h1>Cases Listing</h1>
+  
+          
+  <div class="ui action left icon input">
+       <i class="search icon"></i>
+      <input type="text" size="30" placeholder="Search by Bank, branch, defendant name, sr_num or oa_num" value.bind="filters[0].value" >
+      
+          <select id="status" class="ui compact selection dropdown" value.bind="filters[1].value">
+            <option repeat.for="status of statuses" model.bind="status">${status}</option>
+        </select>
+     
+</div>
+
+<!--  <p></p>
+
+  <div class="ui input">
+    <input type="text" value.bind="filters[0].value" placeholder="Enter filter text" class="form-control"/>
+</div>
+
+<div class="form-group">
+    <label for="status">Case Status</label>
+    <select id="status" class="form-control" value.bind="filters[1].value">
+        <option repeat.for="status of statuses" model.bind="status">${status}</option>
+    </select>
+</div> -->
+
+  <!-- celled -->
+<div class="dimmable">
+    <div class="${'ui' + (waitingForDataTransfer ? ' active ' :' ') + 'inverted dimmer'}">
+        <div class="ui loader"></div>
+    </div>
+    
+    <p align="right"> <i class="calendar icon"></i> </p>
+ 
+     
+          <button type="submit" click.trigger="getFreshTableData()" class="ui button">Refresh Data</button>
+        
+  
+
+    <table class="ui teal celled selectable table"  width="100%" 
+        aurelia-table="data.bind: users; display-data.bind: $displayData; filters.bind: filters">
+        <thead>
+        <tr>
+            <th>Applicant Bank</th>
+            <th>Branch</th>
+            <th>Defendant Name</th>
+            <th>O.A./S.R. Number</th>
+            <th>Date of Filing</th>
+            <th>O.A. Date</th>
+            <th>Case Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr repeat.for="user of $displayData">
+            <td>${user.bank}</td>
+            <td>${user.branch}</td>
+            <td><a href="${'#/m/' + user.id}"> ${user.dname} </a></td>
+            <td>${user.sr_oa_num}</td>
+            <td>${user.filed_date}</td>
+            <td>${user.oa_date}</td>
+            <td>${user.status}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</template>

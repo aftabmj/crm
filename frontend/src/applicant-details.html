@@ -1,0 +1,100 @@
+<template>
+   <!--  <require from="./resources/elements/nav-bar"/> 
+    
+    </nav-bar> -->
+
+    <div class="ui main container">
+    
+    <form class='ui form' submit.delegate="createApplicant()">
+
+   <h3 class="ui dividing header">Applicant details</h3>
+ 
+      <div class="field"> 
+      <div class="two fields">
+          <div class="field">
+                 <label> Step 1: Select Bank Name</label>
+        <select name="banks" value.bind="selectedBankId" 
+                change.delegate="bankDropdownChanged()">
+            <option model.bind=null></option>        <!--         assumed to be the bank_ids of the banks-->
+            <option model.bind="1">Bank of Baroda</option>
+            <option model.bind="2">Bank of Maharashtra</option>
+            <option model.bind="3">Central Bank of India</option>
+            <option model.bind="4">Dhanlaxmi Bank</option>
+            <option model.bind="5">Indian Overseas Bank</option>
+            <option model.bind="6">State Bank of India</option>
+<!-- http://stackoverflow.com/questions/39961416/get-selected-option-value-in-change-event  
+like to use model.bind because I can bind true/false values instead of everything being a string.
+onChange="branchAddress()">
+-->
+        </select>
+        </div> <!-- field -->
+       
+         <div class="field">
+             <label> Step 2: Select Branch for chosen bank</label>
+            <select name="branches" value.bind="changedAddressId"
+                change.delegate="branchDropdownChanged(changedAddressId)">
+                <option value="">-Choose Branch-</option>
+                <option model.bind="branch.address_id"                
+                    repeat.for="branch of branch_list">${branch.branch_name}</option>
+             </select>   
+         </div>
+        </div> <!-- two fields -->
+        </div> <!--field-->
+        <p>
+            <p>Chosen Branch address 
+            </p>
+            ${chosenBranch.line1}<br/>
+            ${chosenBranch.line2}<br/>
+            ${chosenBranch.city} - ${chosenBranch.pincode}<br/>
+            ${chosenBranch.state}<br/>
+
+    <p>
+    <!--
+     <b>OR Enter another bank's details </b><br/>
+
+        <input type="text" id="branch_name" value="" placeholder="Other Bank Name">
+        </p>
+        <p>
+            <input type="text" id="line1" value="" placeholder="bank address line 1">    <br/>
+            <input type="text" id="line2" value="" placeholder="bank address line 2 "> <br/>
+            <input type="text" id="city" value="" placeholder="bank city">    <br/>
+            <input type="text" id="pincode" value="" placeholder="bank pin code"> <br/>
+    
+        </p>-->
+        <p>
+            Represented by its <br/>
+            <select value.bind="rep_title" name="rep_types">
+                <option value="0">-Choose Representative-</option>
+                <option model.bind="1">Branch Manager</option>
+                <option model.bind="2">Chief Manager</option>
+                <option model.bind="3">Assistant General Manager</option>
+            </select>
+        </p>
+
+</p>            
+        <button class="${ waitingForDataTransfer ? 'ui basic loading button' :'ui button'}"
+                    tabindex="0" type="submit" id='saveForm' disabled.bind="!canSave">Save Details</button>
+
+           <!--    <p>next :</p>
+                <template>
+        
+    
+    
+                  <require from="./address.html"></require>
+    
+                  <address line1=${chosenBranch.line1}
+                          line2=${chosenBranch.line2}
+                          city=${chosenBranch.city}
+                          state=${chosenBranch.state}
+                          pincode=${chosenBranch.pincode}>
+                      
+                  </address>
+                          
+                 </template> -->
+                
+        </p>
+        
+  </form>
+      </div> <!-- main container  -->
+
+</template>

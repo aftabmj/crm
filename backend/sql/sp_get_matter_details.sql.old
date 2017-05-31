@@ -1,0 +1,45 @@
+USE c9;
+DROP PROCEDURE IF EXISTS sp_get_matter_details;
+DELIMITER //
+create procedure sp_get_matter_details (in matter_id int)
+
+BEGIN
+
+    -- matter ids, dates, and status
+    
+    -- one applicant details
+    
+    -- one defendant details
+    
+    -- one facility detail
+
+select  concat(i.first_name,' ' , i.last_name) as dname
+		, x.sr_oa_no as 'sr_oa_num'
+	    , DATE_FORMAT(x.create_date,'%Y-%m-%d') as oa_date -- WATCH OUT !!!!!!!!!!!!!!
+	    , DATE_FORMAT( date_filed ,'%Y-%m-%d') as filed_date
+	    , ls.status
+	    , x.bank_name as 'bank'
+	    , x.branch_name as 'branch'
+from (
+		select m.id 
+			   ,IFNULL(m.case_id, m.sr_no) as sr_oa_no 
+			   ,m.create_date
+			   ,m.date_filed
+			   ,lb.bank_name
+			   ,na.address_name as 'branch_name'
+			   ,m.status_id 
+		from party_matter pm 
+			inner join Matter m on m.id = pm.matter_id 
+		    inner join party_type_non_individual ni on ni.party_id = pm.party_id
+		    inner join lookup_banks lb on ni.main_office_address_id = lb.main_office_address_id
+		    inner join NonIndividualsAddresses na on ni.non_individual_address_id = na.address_id
+		where m.id = matter_id
+		    	
+    ) as x
+    inner join party_matter pm1 on pm1.matter_id = x.id
+ 	inner join party_type_individual i on  pm1.party_id = i.party_id 
+	inner join lookup_matter_statuses ls on x.status_id = ls.id;
+
+    
+END ; //
+DELIMITER ;

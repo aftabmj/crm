@@ -1,0 +1,31 @@
+<template>
+    <div class="two column row">
+                        
+        <div class="four wide column"> 
+            <h5>Repayment Terms  </h5>
+        </div>
+            <div class="four wide column"> </div>
+    </div>
+    <div class="five column row">
+        <!--<div class="four wide column">  <label>Loan Amount (Rs.)</label> <input type="text" placeholder="12,34,567"/> </div>-->
+        <div class="three wide column"> <label>No.Installments</label> 
+            <input type="text" value.bind="f.numInstallments" placeholder="e.g. 60"/>   </div>
+        <div class="three wide column">
+            <label> Period</label>
+            <select value.bind="f.installmentPeriod">
+                <option model.bind=null></option>
+                <option model.bind="1">Monthly</option>
+                <option model.bind="2">Quarterly</option>
+                <option model.bind="3">Semi-Annually</option>
+                <option model.bind="4">Annually</option>
+            </select>
+        </div>
+        <div  class="three wide column"> <label>Installment Amt</label> 
+            <input type="text" value.bind="f.installmentAmount" placeholder="(in Rupees)"/></div>
+        <div class="three wide column"> <label>Moratorium</label> 
+            <input type="text" value.bind="f.moratoriumMonths" placeholder="(in months)"/>   </div>
+        <div class="four wide column"> <label>Starting From</label>
+            <input type="date"  value.bind="f.startingFrom" /> </div>
+    </div>
+
+</template>

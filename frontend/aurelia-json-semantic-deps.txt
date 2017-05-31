@@ -1,0 +1,16 @@
+,
+          {
+            "name":"jquery",
+            "path":"../node_modules/jquery/dist",
+            "main":"jquery.min",
+            "export":"$"
+          },
+          {
+            "name": "semantic-ui",
+            "path": "../node_modules/semantic-ui/dist",
+            "main": "semantic",
+            "deps": ["jquery"],
+            "resources": [
+              "semantic.css"
+            ]
+          }

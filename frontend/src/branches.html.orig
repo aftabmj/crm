@@ -1,0 +1,10 @@
+<template>
+  <section >
+      <h2>${heading}</h2>
+      <div class="row au-stagger">
+        <div  repeat.for="branch of branches">
+          <p><b>${branch.branch_name} ${branch.line1}</b>
+        </div>
+      </div>
+  </section>
+</template>

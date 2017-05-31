@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link data-require="font-awesome@4.3.0" data-semver="4.3.0" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="http://semantic-ui.com/dist/semantic.min.css" />
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <title>Aurelia</title>
+</head>
+
+<body aurelia-app>
+    
+    <div class="splash">
+        <i class="fa fa-spinner fa-pulse"></i>
+    </div>
+    
+    <script data-require="jspm@0.16.11" data-semver="0.16.11" src="https://jspm.io/system@0.16.11.js"></script>
+    <script data-require="Aurelia@0.15.0" data-semver="0.15.2" src="https://cdn.rawgit.com/distros/aurelia/0.15.2/aurelia.js"></script>
+    <script src="config.js"></script>
+    <script>
+        System.import("aurelia-bootstrapper");
+    </script>
+</body>
+
+</html>

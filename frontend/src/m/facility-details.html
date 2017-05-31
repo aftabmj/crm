@@ -1,0 +1,123 @@
+    <template>
+    <require from="../resources/elements/facility-repayment.html"></require>
+    <div class="ui main container">
+
+        <form class='ui form' submit.delegate="createFacility()">
+            <p></p>
+            <h3 class="ui dividing header">Facility details</h3>
+            <div class="ui grid">
+               <div class="four column row" style="background-color:#9acaca;">
+                   <div class="four wide column"> <label>Sanction Letter No.</label>
+                       <input type="text" value.bind="f.sanctionLetterNo" placeholder=" 1234567"/></div>
+                   <div class="four wide column"> <label>Sanctioned Date</label> 
+                       <input type="date" value.bind="f.sanctionedDate"/> </div>
+                   <div class="four wide column"> <label>Availed Date</label> 
+                       <input type="date" value.bind="f.availedDate"/> </div>
+                   <div class="four wide column"> <label>Account No.</label> 
+                       <input type="text" value.bind="f.accountNo" placeholder="023412 34567"/> </div>
+                </div>
+
+              <div class="three column row">
+                    <div class="four wide column">
+                         <label>Select Facility type</label>
+                        <select name="facilityTypes" value.bind="f.facilityTypeId" 
+                            change.delegate="facilityTypeDropdownChanged()">
+                            <option model.bind=null></option>
+                            <option model.bind="1">Term Loan</option>
+                            <option model.bind="2">Housing Loan</option>
+                            <option model.bind="3">Auto Loan</option>
+                            <option model.bind="4">Cash Credit</option>
+                        </select>
+                    </div>
+
+                   <div class="three wide column"> <label>Loan Amount</label> 
+                   <input type="text" value.bind="f.loanAmount" placeholder="(in Rupees)"/> </div>
+    
+                    <div class="nine wide column">
+                       <label>For the purpose of</label>
+                        <input type="text" value.bind="f.loanPurpose" 
+                        placeholder="E.g. Agricultural activities / Manufacturing Electronic Equipment/..."/>
+                    </div>
+               </div>
+
+
+                <div class="one column row" >  </div>
+                
+                
+                <template if.bind="showRepayment">
+                 <compose view-model="../resources/elements/facility-repayment"
+                    model.bind="facilityDetails.f" containerless> </compose>
+                </template> 
+    
+                <div class="one column row">                </div>
+ 
+                <div class="four column row">
+                    <div class="left floated column">
+                        <button class="${ waitingForDataTransfer ? 'ui basic loading button' :'ui button'}"
+                          type="submit" id='saveForm' >Save Details</button> <!-- disabled.bind="!canSave"  tabindex="0" -->
+                    </div>
+                    <div class="right floated column">                      
+                        <button class="${ waitingForDataTransfer ? 'ui basic loading button' :'ui primary submit button'}"
+                          type="submit" id='saveFormAddAnother' disabled.bind="!canSave">Save & Add another</button>
+                    </div> 
+                </div>  <!-- four column row -->      
+
+            </div> <!--ui grid-->
+        </form>
+    </div> <!-- main container  -->
+</template>
+
+  <!-- this should be in the right frame and should never leave the DOM
+    <div class="ui dividing right rail" style="min-height: 406px;"><div class="ui sticky" style="left: 1040px; width: 238px !important; height: 438.859px !important;"><h4 class="ui header">Theming</h4><div class="ui vertical following fluid accordion text menu"><div class="item active"><a class="active title"><i class="dropdown icon"></i> <b>
+    Preface
+  </b></a><div class="active content menu"><a class="item active" href="#progressive-truthfulness">Progressive Truthfulness</a></div></div><div class="item"><a class="title active"><i class="dropdown icon"></i> <b>
+    Lead By Example
+  </b></a><div class="content menu active"><a class="item" href="#recreating-github">Recreating GitHub</a></div></div><div class="item"><a class="title active"><i class="dropdown icon"></i> <b>
+    Using Themes
+  </b></a><div class="content menu active"><a class="item" href="#sitewide-defaults">Sitewide Defaults</a><a class="item" href="#component-defaults">Component Defaults</a><a class="item" href="#using-packaged-themes">Using Packaged Themes</a><a class="item" href="#browsing-for-themes">Browsing for Themes</a></div></div><div class="item"><a class="title"><i class="dropdown icon"></i> <b>
+    Composing a Component
+  </b></a><div class="content menu"><a class="item" href="#definition-file">Definition File</a><a class="item" href="#theme-files">Theme Files</a><a class="item" href="#variables-files">Variables Files</a><a class="item" href="#override-files">Override Files</a></div></div><div class="item"><a class="title"><i class="dropdown icon"></i> <b>
+    Cascading Inheritance
+  </b></a><div class="content menu"><a class="item" href="#theme-inheritance">Theme Inheritance</a><a class="item" href="#default-theme">Default Theme</a><a class="item" href="#packaged-theme">Packaged Theme</a><a class="item" href="#site-theme">Site Theme</a></div></div></div></div></div>
+  -->
+
+
+                    <!-- <div class="three wide column"><label>+/- Base Rate</label> <input type="text" placeholder="+ 1.5 %"/> </div>
+                    <div class="three wide column"> <label>Interest rate p/a</label><input type="text" placeholder="5%"/> </div>-->
+                                   <!--
+               <b>Document(s) Taken</b>
+               <div class="four column row" style="background-color:#9acaca;">< ! - - #9acaca  dbe1fd #64b9b2;"> #fafafa  
+                  <div class="middle aligned one wide column"> <label>1</label></div>
+                  <div class="center aligned ten wide column"> <label> <b>Title of Document</b></label> <input type="text" placeholder="Loan Document for Property"/> </div>
+                  <div class="four wide column"> <label>Account No.</label> <input type="text" placeholder="023412 34567"/> </div>
+                  <div class="middle aligned one wide column"> <button class="ui button red"> <b> + </b> </button> </div>
+                  <! - - <i class="add icon"></i> 
+               </div>
+                -->
+
+               
+               <!--
+                <b>Details of Immovable Properties Mortgaged</b>
+               <div class="one column row">
+                   <textarea rows="5">
+                   </textarea>
+               </div>
+               <p>
+                    <h4>NPA Date</h4>
+                <div class="one column row right aligned">
+                   <div class="ui big"> <input type="date"/>     </div>
+               </div>
+               </p>
+
+               <div class="one column row">
+                   <div class="five wide column ">  <label>Outstanding as on NPA Date</label> <input type="text" placeholder="Rs. 90,12,243.50"/> </div>    
+               </div>
+
+               <div class="one column row inline">
+                 <div class="five wide column"> <label>Interest from NPA to OA Date </label> <input type="text" placeholder="Rs. 92,243.50"/>  </div>
+               </div>
+
+               <div class="one column row inline">
+                   <div class="five wide column"> <label>Penal Interest (if any)</label><input type="text" placeholder="Rs. 1,443.93"/> </div>
+               </div>
+            -->

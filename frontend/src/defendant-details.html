@@ -1,0 +1,167 @@
+<template>
+    <div class="ui fixed inverted main menu">
+  <div class="ui container">
+    <a class="launch icon item">
+      <i class="content icon"></i>
+    </a>
+    
+      <div class="item">
+        Container
+      </div>
+  </div>
+</div>
+    
+
+<div class="main container">
+
+    <form class="ui form" submit.delegate="saveDefendant()">
+    
+      <h3 class="ui dividing header">Defendant details</h3>
+         <p align="right">If company/firm, please
+           <a href="#/defendant-non-individual"> go to non-individual page</a>
+         </p>
+        <p> </p>
+        
+        <div class="inline fields">
+        <label>Select the type of defendant</label>
+          <label repeat.for="option of financial_role_options">
+                <input class="ui radio checkbox" type="radio" model.bind="option"
+                checked.bind="$parent.financial_role_selected_option"/>
+            ${option.text}
+          </label>
+        </div>
+
+
+      <div class="field">  <!--  Make address into a template-->
+        <label>Name</label>
+        <b>
+        <div class="four fields">
+          <div class="two wide field">
+              <select class="ui dropdown" value.bind="iD.saluation" name="salutation">
+                <option value="0"></option>
+                <option value="Mr.">Mr.</option>
+                <option value="Mrs.">Mrs.</option>
+                <option value="Ms.">Ms.</option>
+              </select>
+          </div>
+          <div class="five wide field">
+            <input type="text" value.bind="iD.first_name" placeholder="First Name">
+          </div>
+          <div class="four wide field">
+            <input type="text" value.bind="iD.middle_name" placeholder="Middle Name">
+          </div>
+          <div class="five wide field">
+            <input type="text" value.bind="iD.last_name" placeholder="Last Name">
+          </div>
+        </div>
+        </b>
+      </div>
+ 
+      
+      <div class="inline fields">
+        <label>Select the Type of relative</label>
+          <label repeat.for="option of relative_options">
+                <input class="ui radio checkbox" type="radio" model.bind="option" value="option.id"
+                checked.bind="$parent.relative_selected_option"/>
+                  ${option.text}
+          </label>
+      
+         <div class="field">
+           <input type="text" size="30" value.bind="iD.relative_name" 
+           placeholder="${parent.relative_selected_option.text ==='father' ? 'father\'s name' : 'husband\'s name'}" >
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Address Details</label>
+        <div class="two fields">
+          <!--<div class="eight wide field">-->
+          <div class="field">
+            <input type="text" value.bind="iD.line1" placeholder="Address Line 1">
+          </div>
+          <div class="field">
+            <input type="text" value.bind="iD.line2" placeholder="Address Line 2">
+          </div>
+        </div>
+      </div>
+      <div class="three fields">
+           <!-- <div class="one wide field"></div> -->
+            <div class="six wide field">
+              <input type="text" value.bind="iD.suburb" name="suburb" placeholder="Suburb / Area">
+            </div>
+            <div class="six wide field">
+                
+              <select class="ui fluid dropdown" value.bind="iD.city" name="city">
+                <option value="0">Choose City</option>
+                    <option value="Chennai">Chennai</option>
+                    <option value="Cuddalore">Cuddalore</option>
+                    <option value="Anguchettipalayam">Anguchettipalayam</option>
+              </select>
+            </div>
+            <div class="four wide field">
+                <input type="text" value.bind="iD.pincode" placeholder="pin code">
+            </div>
+            <!-- <div class="one wide field"></div> -->
+      </div>
+     <div class="field">
+        <label>Primary Occupation</label>
+         <div class="eight wide field">
+                <input type="text" value.bind="iD.occupation" placeholder="e.g. Agriculture/ Equipment Manufacturing">
+        </div>
+    </div>
+      <!--
+      <div class="two fields">
+            <div class="four wide field">
+                 <input type="text" id="father_name" value="" placeholder="father's name">
+            </div>
+            <div class="four wide field">
+                <input type="text" id="spouse_name" value="" placeholder="spouse's name">
+            </div>
+      </div> -->
+      
+      <div class="field">
+            <div class="ui grid">
+              <div class="four column row">
+                    <div class="left floated column">
+                        <button class="${ waitingForDataTransfer ? 'ui basic loading button' :'ui button'}"
+                          type="submit" id='saveForm' disabled.bind="!canSave">Save Details</button> <!--  tabindex="0" -->
+                    </div>
+                    <div class="right floated column">
+                        <button class="${ waitingForDataTransfer ? 'ui basic loading button' :'ui button'}"
+                          type="submit" id='saveFormAddAnother' disabled.bind="!canSave">Save & Add another</button>
+                   </div> 
+            </div>  <!-- four column row -->      
+         
+           </div> <!-- ui grid -->
+       </div> <!-- fields -->
+    </form>
+
+</div>  <!-- main container -->
+
+</template>
+
+       <!--  <div class="ui fluid multiple search selection dropdown">
+            <input name="tags" type="hidden" value="">
+            <i class="dropdown icon"></i>
+            <input class="search" autocomplete="off" tabindex="0">
+                <span class="sizer"></span><div class="default text">Skills</div>
+            <div class="menu transition hidden" tabindex="-1">
+                <div class="item selected" data-value="agriculture">Agriculture</div>
+                <div class="item" data-value="design">Fertilizer R&D</div>
+                <div class="item active filtered" data-value="css">Machinery - Auto</div>
+                <div class="item active filtered" data-value="ember">Machinery - Other</div>
+          </div>
+      </div>-->
+      
+      
+      
+      	<!--<p>
+			   Defendant's nature of activity (relevant paragraph 5.2) <br/>
+				<input type="text" id="line1" size=80 value="" placeholder="E.g : Agriculture / Manufacturing of auto parts">    <br/>
+		
+
+			</p>
+			<p>
+			   Loan Application Date <br/>
+				<input type="date" id="date_exec" value='2016-12-31'/>   <br/>
+			</p>-->
