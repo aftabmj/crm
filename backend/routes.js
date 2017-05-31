@@ -1,7 +1,14 @@
 
 
-var express = require('express');
+var express = require('express')
+    excors = require('express-cors');
+
 var router = express.Router();
+router.use(excors({
+    allowedOrigins: [ 'http://localhost:8082', 'http://frontend-mjcoder.c9users.io:8080','http://frontend-mjcoder.c9users.io'] 
+    //, maxAge : 2*60
+}));
+
 
 var bankRequestHandler = require('./controllers/BankController.js'),
     party_controller = require('./controllers/PartyController.js'),

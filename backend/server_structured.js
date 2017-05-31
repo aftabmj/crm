@@ -1,6 +1,5 @@
 
 var express  = require('express'),
-    excors = require('express-cors'),
     path     = require('path'),
     bodyParser = require('body-parser'),
     app = express();

@@ -71,7 +71,7 @@ export class DefendantNonIndividualDetails {
     
     this.waitingForDataTransfer = true;
 
-    this.http.fetch("ni_defendant_details/", {
+    this.http.fetch("nd/", {
             method: "post",
             body: json(this.niD),
              headers: {

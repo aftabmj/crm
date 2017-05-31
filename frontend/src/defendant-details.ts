@@ -108,8 +108,8 @@ export class DefendantDetails {
         this.iD.address_name = 'Home address';
         this.iD.state ='Tamil Nadu';
     
-            this.waitingForDataTransfer = true;
-        this.http.fetch("defendant_details/", {
+        this.waitingForDataTransfer = true;
+        this.http.fetch("id/", {
             method: "post",
             body: json(this.iD),
              headers: {

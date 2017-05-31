@@ -107,7 +107,8 @@ in rep_title varchar(50))*/
 //      this.parent.fields.
 
       //this.waitingForDataTransfer = true;
-      this.http.fetch('branch_address/' + parseInt(this.selectedBankId))
+
+      this.http.fetch('b/' + parseInt(this.selectedBankId) +'/branches' )
             .then(r => r.json())
             .then(data => this.branch_list = data)
            // .then(e => () => {

@@ -1,0 +1,40 @@
+Ether-end (Google App script code)
+----------------------------------
+    - Templates setup
+    - 'framework' code
+===============================================================
+
+
+Backend (Node/Express REST API):
+------------------------------
+    Major :
+    v2 :
+    - Caching (Redis)
+    - Convert to TS [and share Service-layer code with Frontend ?]
+    - API versioning
+
+Frontend (Aurelia SPA):
+----------------------
+    Major :
+    - Google API OAuth
+    - Sign-in Page
+    - Validation
+    Minor :
+    - Menu /Sidebar
+
+    v2 : 
+    - Welcome Page/Dashboard
+    - SW & Caching
+    - HTTP/2 ?
+    - Bundling
+
+Both :
+-----
+    - Auth
+    v2:
+    - (U) Sessions
+    - (U) Matter History
+    - Logging
+    - Deployment & Monitoring (Ops)
+
+

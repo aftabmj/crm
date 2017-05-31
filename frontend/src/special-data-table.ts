@@ -35,7 +35,7 @@ export class SpecialDataTable {
     getFreshTableData () {
         this.waitingForDataTransfer = true;
         
-        this.http.fetch('getPartiesAndMatterData/')
+        this.http.fetch('m/')
             .then(r => r.json())
             .then(data => {
                  //console.log(" response first row " + JSON.stringify(data[0]));

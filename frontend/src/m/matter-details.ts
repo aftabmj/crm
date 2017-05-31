@@ -31,7 +31,7 @@ export class MatterDetails {
          this.matter_id = params.id;
     this.waitingForDataTransfer = true;
     
-     this.http.fetch('getMatterDetails/' + this.matter_id)
+     this.http.fetch('m/' + this.matter_id)
             .then(r => r.json())
             .then(data => {
                 this.matter_details=data[0];

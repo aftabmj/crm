@@ -117,7 +117,7 @@ export class ReviewMatterCreate {
             if(d[i].case_side ==='A') {
                 this.applicants.push( nonIndi);
             } else {
-                 this.defendants_n.push( nonIndi);
+                 this.defendants_n.push(nonIndi);
             }
             //objType.push(d[i]);
         }
@@ -132,7 +132,7 @@ export class ReviewMatterCreate {
      getCandidatePartiesForMatter() {
         //let d = [];
         
-        this.http.fetch('getCandidatesForMatter/')
+        this.http.fetch('c/')
             .then(r => r.json())
             .then(data => {
               //   console.log(" response applicants " + JSON.stringify(data[0]));
@@ -197,7 +197,7 @@ export class ReviewMatterCreate {
      b = this.getCheckedPartyIds(this.defendants_n);
      for (let j =0 ;j< b.length; j++) {   def_ids[i++] = b[j];  }
     
-     this.http.fetch("createMatter/", {
+     this.http.fetch("m/", {
             method: "post",
             body: json({
                     applicant_ids:apl_ids,

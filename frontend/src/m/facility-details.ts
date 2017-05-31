@@ -72,7 +72,7 @@ export class FacilityDetails {
         
        // let borrower_id = this.getBorrowerIdForMatter();
         
-        this.http.fetch("create_facility" , {
+        this.http.fetch("f/" , {
             method: "post",
             body: json(this.f),
              headers: {
