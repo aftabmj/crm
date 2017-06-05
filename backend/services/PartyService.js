@@ -23,7 +23,7 @@ class PartyService {
         var data = [partyId];
         
        // db.getRecords(qstring,data, callback);
-         db.executeDBCommand(qstring,data, function (err,rows){
+         db.executeCommand(qstring,data, function (err,rows){
               if(err){
                 console.log(err);
                 return next("Mysql error, check your query");
@@ -36,7 +36,14 @@ class PartyService {
 
     createApplicant(data,next,callback) {
         var qstring ="SET @applicant_id=0;CALL sp_add_applicant(?, ?, ?, ?,@applicant_id);select @applicant_id; ";
-        db.executeDBCommand(qstring,data, callback);
+        db.executeCommand(qstring,data, function (err,rows) {
+            if(err){
+                console.log(err);
+                return next("Mysql error, check your query");
+              } else{
+                  callback(rows);
+              }
+        });
     }
 
 //use c9;
@@ -48,7 +55,7 @@ class PartyService {
 
         var qstring = "SET @defendant_id=0;CALL sp_add_indi_defendant(?, ?, ?, "+
                     "  ?, ?, ?,   ?, ?, ?,   ?, ?, ?,  ?, ?, ?,  @defendant_id);select @defendant_id;";
-        db.executeDBCommand(qstring,data, function(err,rows){
+        db.executeCommand(qstring,data, function(err,rows){
             if(err){ 
                 console.log(err);
                 return next("Mysql error, check your query");
@@ -67,7 +74,7 @@ class PartyService {
 
         var qstring = "SET @ndef_id=0;CALL sp_add_nonindividual_defendant("+
                         "?, ?, ?, ?, ?,    ?, ?, ?, ?,@ndef_id);select @ndef_id;" ;
-        db.executeDBCommand(qstring,data, function(err,rows){
+        db.executeCommand(qstring,data, function(err,rows){
             if(err){ 
                 console.log(err);
                 return next("Mysql error, check your query");
@@ -82,7 +89,7 @@ class PartyService {
 
 
 
-    getCandidatesForMatter (next,callback) {
+    getCandidatesForMatter () {
         console.log( "here getCandidatesForMatter ");
         var qstring = '';
         var p1 = new Promise(
@@ -96,21 +103,9 @@ class PartyService {
                     cq.queryDBAsPromise(db,qstring,resolve,reject);
                 });
         
-        Promise.all([p1,p2])
-            .then((results) => {
-                console.log(results);
-                callback(results);
-            })
-            .catch((e) => { 
-                console.log(e); 
-                next("Caught Exception in GetCandidatesForMatter");
-            });
+        return [p1,p2];
     }
 
-
-
-
-    
 }
 
 module.exports = new PartyService();

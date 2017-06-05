@@ -1,37 +1,27 @@
 import {inject} from 'aurelia-framework';
-import {HttpClient,json} from 'aurelia-fetch-client';
-import * as Constants from '../constants';
+import {MatterService} from '../../backend/matter-service';
+import * as Constants from '../../constants';
+import {Matter} from '../../matter';
 
-@inject(HttpClient)
+@inject(MatterService)
 export class MatterDetails {
     
     http;
+    private matterService:MatterService;
     matter_id;
-    matter_details;
     waitingForDataTransfer:boolean;
-    applicants:any[];
-    defendants:any[];
+    matter:Matter;
     
-     constructor(http:HttpClient) {
-        
-        http.configure(config => {
-                config
-                    .withBaseUrl(Constants.default.BACKEND_RESTAPI_ENDPOINT)
-                    .withDefaults({
-                        headers: {
-                            'Accept': 'application/json'
-                        }
-                    });
-            })
-        this.http = http;
+     constructor(mS:MatterService) {
+        this.matterService = mS;
         this.waitingForDataTransfer = false;
      }
      
      activate (params) {
-         this.matter_id = params.id;
-    this.waitingForDataTransfer = true;
+        this.matter_id = params.id;
+        this.waitingForDataTransfer = true;
     
-     this.http.fetch('m/' + this.matter_id)
+/*        this.http.fetch('m/' + this.matter_id)
             .then(r => r.json())
             .then(data => {
                 this.matter_details=data[0];
@@ -39,7 +29,8 @@ export class MatterDetails {
                 this.defendants = data[2];
                 for (var i =0; i< data[3].length; i++)
                     this.defendants.push(data[3][i]);
-                    
+  */
+
                 // we want to show Borrowers first B < G (guarantors)
                /* this.defendants.sort((a,b) => 
                         { return (
@@ -52,14 +43,21 @@ export class MatterDetails {
 //                 console.log(" response applicants " + JSON.stringify(data[0]));
   //              console.log(" response defendants " + JSON.stringify(data[1]));
                     //this.matter_details=data;
-                })
+  //              })
+        this.matterService.getMatterById(this.matter_id)
+            .then( (matter:Matter) =>{ 
+                this.matter = matter;
+                console.log(" Matter " + matter );
+                //return this.matter;
+            })
             .catch(e => ()=>{
                 console.log("Booo");
                 alert("Sorry, there was an error communicating with the server.")
                 
                 this.waitingForDataTransfer = false;
-            });
-
+          });
+          
+        
     }
 
 

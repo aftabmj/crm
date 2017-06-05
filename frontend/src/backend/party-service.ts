@@ -1,48 +1,50 @@
-import {inject} from 'aurelia-framework';
-import {HttpClient} from 'aurelia-fetch-client';
-import {BranchDetails} from '../branch-details';
+import {HttpService} from './http-service';
+import {json} from 'aurelia-fetch-client';
+import {IndividualDetails} from  '../individual-details';
+import {NonIndividualDetails} from  '../resources/elements/non-individual-details';
 
-const BACKEND_RESTAPI_ENDPOINT:string ='https://express-webserver-mjcoder.c9users.io:8080/api/';
 
-@inject(HttpClient)
-export class PartyService {
+export class PartyService extends HttpService {
     
-    http;   
-    constructor(http) {
-        
-        http.configure(config => {
-                config
-                    .withBaseUrl(BACKEND_RESTAPI_ENDPOINT)
-                    .withDefaults({
-                        headers: {
-                            'Accept': 'application/json'
-                        }
-                    });
-            });
-        this.http = http;
+    public addApplicant(bankId:number,branchAddrId:number,repTitle:string) :Promise<any> {
+          return  this.http.fetch("a/", {
+            method: "post",
+            body: json({
+                bank_id:bankId, //parseInt(this.selectedBankId), //assumption (see comment on top)
+                branch_addr_id:branchAddrId,
+                rep_title:repTitle
+            }),
+            mode:'cors-with-forced-preflight' // THIS IS THE KEY !! 
+                                //OPTIMIZATION :have a session-key "LAST preflight POST TIME" (millis)
+                                            // if that is close to the maxAge set in the cors-settings, then force it.
+          });
+          
     }
-    
-    getBranchDetails(address_id:number) : BranchDetails[] {
-        
-        let branch_list: BranchDetails[] = undefined;
-        
-        return this.http.fetch('branch_address/' + address_id)
-            .then(r => r.json())
-            .then(data => branch_list = data)
-            .then (aa => () =>
-                {    console.log(aa + " " + branch_list);
-                return branch_list;
-                    
-                } );
-    
-    /*            .catch(e => ()=>{
-                console.log("Booo");
-                this.branch_list = undefined;
-                this.chosenBranch = undefined;
-            });
-*/
+
+ public addIndividualDefendant(individualDefendant:IndividualDetails) :Promise<any> {
+          return  this.http.fetch("id/", {
+            method: "post",
+            body: json(individualDefendant)
+            /*,
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }*/
+          });
     }
-    
-    
+
+ public addNonIndividualDefendant(nonIndividualDefendant:NonIndividualDetails) :Promise<any> {
+          return  this.http.fetch("nd/", {
+            method: "post",
+            body: json(nonIndividualDefendant)
+            /*,
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }*/
+          });
+    }
+
+
 
 }

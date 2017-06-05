@@ -9,14 +9,15 @@ exports.createApplicant = function(req,res,next){
          req.body.rep_title, fake_session_id //req.session.id // session_id
      ];
 
-    PartyService.createApplicant(data, function(err, next, rows){
-        if(err){ 
-            console.log(err);
-            return next("Mysql error, check your query");
-        }
+    PartyService.createApplicant(data, next, function(err, rows){
         res.setHeader('Content-Type', 'text/plain');
         res.status(201);
-        res.send( JSON.stringify(rows[rows.length-1][0]));                    
+
+        //TODO : investigate - unlike the older implementation, 
+        // the 'mysql' library (pool) connection does not
+        //seem to print out output rows from multiStatement requests
+        console.log("Rows : ----------" + rows);
+        res.send( JSON.stringify(rows));                    
     });  
 };
 ////////////////////////////////////////////////////////////////
@@ -79,8 +80,16 @@ exports.createNonIndependantDefendant =  function(req,res,next){
 
 
 exports.getCandidatesForMatter = function (req,res,next){
-        PartyService.getCandidatesForMatter (next,function(results) { 
-            res.setHeader('Content-Type', 'text/plain');
-            res.send(results);
-        });
+       var arrayOfPromises = PartyService.getCandidatesForMatter ();
+           
+           Promise.all(arrayOfPromises)
+            .then((results) => {
+                console.log("here are the results : " + results);
+                res.setHeader('Content-Type', 'text/plain');
+                res.send(results);
+            })
+            .catch((e) => { 
+                console.log(e); 
+                next("Caught Exception in GetCandidatesForMatter");
+            });
 }

@@ -21,10 +21,9 @@ class BankService {
            // console.log("using the cached version of bank branches. saved time : " + this.banks[bank_id].savedTime );
         //    callback(branches);
         //} else {
-            db.executeDBCommand(qstring,[bank_id],function(err,rows){
+            db.executeCommand(qstring,[bank_id],function(err,rows){
                 if(err){
                     console.log(err);
-                    return next("Mysql error, check your query");
                 } else {
                     //if (! this.banks || "undefined" !== typeof(branches) ){
                     //    this.banks = new Map();

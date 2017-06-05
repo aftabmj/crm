@@ -2,6 +2,7 @@
 var db = require('../database');
 //var cq = require('../concurrent_queries');
 
+//TODO : the callbacks in all cases do almost the same thing. this could be an common/reused piece of code.
 class FacilityService {
 
     createFacility (data,next,callback){
@@ -11,7 +12,7 @@ class FacilityService {
             set @loan_id =0 ; " +
             "CALL sp_create_facility(?, ?, ?, ?,     ?, ?, ?,    ? , @loan_id); select @loan_id;"
 
-         db.executeDBCommand(qstring,data, function(err,rows){
+         db.executeCommand(qstring,data, function(err,rows){
             if(err){ 
                 console.log(err);
                 return next("Mysql error, check your query");
@@ -24,7 +25,7 @@ class FacilityService {
     createLoanRepaymentDetails (data,next,callback) {
         var qstring = "CALL sp_create_repayterms_for_loan(?, ?, ?,     ?, ?, ?);";
 
-        db.executeDBCommand(qstring,data, function(err,rows){
+        db.executeCommand(qstring,data, function(err,rows){
             if(err){ 
                 console.log(err);
                 return next("Mysql error, check your query");

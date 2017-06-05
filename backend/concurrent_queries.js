@@ -1,7 +1,7 @@
 //TODO : Move this into database.js
 exports.queryDBAsPromise = function (db,qstring,resolve,reject) {
 
-    db.executeDBCommand(qstring,function(err,rows){
+    db.executeCommand(qstring,function(err,rows){
         console.log( "sqtring : " + qstring);
         if(err){
             console.log(err);

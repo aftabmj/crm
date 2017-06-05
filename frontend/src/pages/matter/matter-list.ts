@@ -1,57 +1,45 @@
 import {inject} from 'aurelia-framework';
-import {HttpClient,json} from 'aurelia-fetch-client';
-import * as Constants from './constants';
+import {MatterService} from '../../backend/matter-service';
 
-@inject(HttpClient)
-export class SpecialDataTable {    
+@inject(MatterService)
+export class MatterList {    
     http;
-  message: string;
-    users = [];
+    message: string;
+    users = [];                               // TODO : replace with MatterListingItem
     statuses = [];
     waitingForDataTransfer:boolean;
-   
+   private matterService:MatterService;
     
     filters = [
         {value: '', keys: ['bank', 'branch', 'dname', 'sr_num', 'oa_num']},
         {value: '', keys: ['status']},
     ];
     
-    constructor(http:HttpClient) {
-        
-        http.configure(config => {
-                config
-                    .withBaseUrl(Constants.default.BACKEND_RESTAPI_ENDPOINT)
-                    .withDefaults({
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json'
-                        }
-                    });
-            });
-        this.http = http;
+     constructor(mS:MatterService) {
+        this.matterService = mS;
         this.waitingForDataTransfer = false;
     }
 
     getFreshTableData () {
         this.waitingForDataTransfer = true;
-        
-        this.http.fetch('m/')
-            .then(r => r.json())
+
+         this.matterService.getAllMatters()
             .then(data => {
                  //console.log(" response first row " + JSON.stringify(data[0]));
                     this.users = data;
                       this.populateStatuses();
                        this.waitingForDataTransfer = false;
                     return this.users;
-                })
-            
+            })
             .catch(e => ()=>{
                 console.log("Booo");
                 alert("Sorry, there was an error communicating with the server.")
                 
                 this.waitingForDataTransfer = false;
-            });
+          });
+        
     }
+    
     activate(){
         this.getFreshTableData();
     }

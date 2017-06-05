@@ -1,7 +1,7 @@
 import {inject} from 'aurelia-framework';
 import {HttpClient,json} from 'aurelia-fetch-client';
-import {Facility} from '../facility';
-import * as Constants from '../constants';
+import {Facility} from '../../facility';
+import * as Constants from '../../constants';
 
 @inject(HttpClient,Facility)
 export class FacilityDetails {

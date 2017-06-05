@@ -1,12 +1,12 @@
 import {inject} from 'aurelia-framework';
-import {NonIndividualDetails} from  './resources/elements/non-individual-details';
-import {HttpClient,json} from 'aurelia-fetch-client';
-import * as Constants from './constants';
+import {NonIndividualDetails} from  '../../resources/elements/non-individual-details';
+import * as Constants from '../../constants';
+import {PartyService} from '../../backend/party-service';
 
-@inject (HttpClient, NonIndividualDetails)
+@inject (PartyService, NonIndividualDetails)
 export class DefendantNonIndividualDetails {    
-  message: string;
-  
+    message: string;
+    partyService:PartyService;
     financial_role_options = [];
     financial_role_selected_option = { id:1, text:'', code:''};
     
@@ -22,33 +22,18 @@ export class DefendantNonIndividualDetails {
      http;
      waitingForDataTransfer:boolean = false;
      
-    constructor(http:HttpClient,niD:NonIndividualDetails) {
-        
-        http.configure(config => {
-                config
-                    .withBaseUrl(Constants.default.BACKEND_RESTAPI_ENDPOINT)
-                    .withDefaults({
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json'
-                        }
-                    });
-            });
-        this.http = http;
+    constructor(partyService:PartyService,niD:NonIndividualDetails) {
+
+      this.partyService = partyService;
         this.niD = niD;
         
         this.financial_role_options = [
             {id:1, text:'Borrower', code:'B'}, 
-            {id:2, text:'Guarantor', code:'B'}
+            {id:2, text:'Guarantor', code:'G'}
         ]; 
         this.financial_role_selected_option = this.financial_role_options[0];
         
-        this.group_type_options = [
-                {id:'S', text:'Sole Proprietorship',reps:[ {id:4, name: 'Sole Proprietor'},{id:5, name:'Sole Proprietorice'}]},
-                {id:'P' , text:'Partnership',   reps:[{id:6, name:'Partner'},{id:7, name:'Managing Partner'}]},
-                {id:'V' , text:'Private Ltd. Company', reps:[{id:8, name:'Director'},{id:9, name:'Managing Director'}] },
-                {id:'U' , text:'Public Ltd. Company' ,  reps:[{id:10, name:'Chairman'},{id:11, name:'Director'},{id:12, name:'Managing Director'}]}
-        ];
+        this.group_type_options = Constants.default.GROUP_TYPE_OPTIONS;
         
     }
 
@@ -71,15 +56,8 @@ export class DefendantNonIndividualDetails {
     
     this.waitingForDataTransfer = true;
 
-    this.http.fetch("nd/", {
-            method: "post",
-            body: json(this.niD),
-             headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
-    
-        }).then(response => {
+    this.partyService.addNonIndividualDefendant(this.niD)
+    .then(response => {
             alert("Succesfully saved" );
             console.log (response);
             this.resetForm();

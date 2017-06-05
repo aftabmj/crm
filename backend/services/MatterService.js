@@ -10,7 +10,7 @@ class MatterService {
         
         var qstring = "SET @matter_id =0; CALL create_matter(?, ?,  ?, ?, ?, ?,  @matter_id); select @matter_id;";
 
-         db.executeDBCommand(qstring,data, function(err,rows){
+         db.executeCommand(qstring,data, function(err,rows){
             if(err){ 
                 console.log(err);
                 return next("Mysql error, check your query");
@@ -20,7 +20,7 @@ class MatterService {
         });        
     }
 
-    getMatterById (matter_id,next,callback) {
+    getMatterById (matter_id,next){
         var p0 = new Promise((resolve,reject) => {
                 cq.queryDBAsPromise(db,
                     "CALL sp_get_matter_details_all("+matter_id+")",resolve,reject);
@@ -38,25 +38,18 @@ class MatterService {
                     "CALL sp_get_defendants_indi_for_matter("+matter_id+")",resolve,reject);
             });
     
-        Promise.all([p0,p1,p2,p3])
-            .then((results) => {
-                console.log(results);
-                callback(results);
-            })
-            .catch((e) => { 
-                console.log(e);
-                return next(e);
-            }); 
+        return [p0,p1,p2,p3];
     }
 
-    getAllMattersSummary (next, callback){
+    getAllMattersSummary (callback){
         var qstring = "CALL sp_getall_matter_summary_data()";
-        db.executeDBCommand(qstring,null, function(err,rows){
+        db.executeCommand(qstring,null, function(err,rows){
             if(err){ 
                 console.log(err);
-                return next("Mysql error, check your query");
+                 callback(true);
             } else {
-                callback(rows[0]);
+                console.log("\n\n\t\treturning data for summary of all matters (for table)\n\n");
+                callback(false,rows[0]);
             }
         });
     }
