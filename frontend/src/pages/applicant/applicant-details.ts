@@ -1,6 +1,6 @@
 import {inject} from 'aurelia-framework';
-import {BankService} from '../../backend/bank-service';
-import {PartyService} from '../../backend/party-service';
+import {BankService} from '../../services/bank-service';
+import {PartyService} from '../../services/party-service';
 //import { observable } from 'aurelia-framework';
 import {HttpClient,json} from 'aurelia-fetch-client';
 import {BranchDetails} from '../../branch-details';

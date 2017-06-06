@@ -1,5 +1,5 @@
 import {inject} from 'aurelia-framework';
-import {MatterService} from '../../backend/matter-service';
+import {MatterService} from '../../services/matter-service';
 import * as Constants from '../../constants';
 import {Matter} from '../../matter';
 

@@ -4,7 +4,7 @@ import {inject} from 'aurelia-framework';
 //import * from './styles/semantic.min/semantic-ui';
 //import 'semantic-ui';
 import {IndividualDetails} from  '../../individual-details';
-import {PartyService} from '../../backend/party-service';
+import {PartyService} from '../../services/party-service';
 
 @inject(PartyService, IndividualDetails)
 export class DefendantDetails {

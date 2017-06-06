@@ -1,7 +1,7 @@
 import {inject} from 'aurelia-framework';
 import {NonIndividualDetails} from  '../../resources/elements/non-individual-details';
 import * as Constants from '../../constants';
-import {PartyService} from '../../backend/party-service';
+import {PartyService} from '../../services/party-service';
 
 @inject (PartyService, NonIndividualDetails)
 export class DefendantNonIndividualDetails {    

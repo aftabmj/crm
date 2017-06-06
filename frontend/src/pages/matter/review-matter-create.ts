@@ -2,7 +2,7 @@ import {inject} from 'aurelia-framework';
 //import {Router} from 'aurelia-router';
 
 import {App} from '../../app';
-import {MatterService} from '../../backend/matter-service';
+import {MatterService} from '../../services/matter-service';
 import {NonIndividualDetails} from '../../resources/elements/non-individual-details';
 import {IndividualDetails} from '../../individual-details';
 
