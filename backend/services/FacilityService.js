@@ -1,6 +1,5 @@
 'use strict';
 var db = require('../database');
-//var cq = require('../concurrent_queries');
 
 //TODO : the callbacks in all cases do almost the same thing. this could be an common/reused piece of code.
 class FacilityService {

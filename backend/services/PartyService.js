@@ -1,6 +1,5 @@
 'use strict';
 var db = require('../database');
-var cq = require('../concurrent_queries');
 
 class PartyService {
     constructor() {
@@ -87,23 +86,31 @@ class PartyService {
         });
     }
 
+    getCandidatesForMatter (next,callback) {
+        var qstring = "CALL sp_get_nonindi_candidates()";
+        var result =  [];
+         db.executeCommand(qstring,null, function(err,rows){
+            if(err){ 
+                console.log(err);
+                return next("Mysql error, check your query");
+            } else {
+                if(rows.length > 0 ) {
+                    result = rows[rows.length-1][0];
+                }
+                qstring = "CALL sp_get_indi_candidates()"; 
+                db.executeCommand(qstring,null, function(err1,rows1){
+                    if(err1) { 
+                        console.log(err1);
+                    }
+                    else if(rows1.length > 0 ){
+                        result.push(rows1[rows1.length-1][0]);
+                    }
+                    callback(result);
+                });
+            }
+        });
 
 
-    getCandidatesForMatter () {
-        console.log( "here getCandidatesForMatter ");
-        var qstring = '';
-        var p1 = new Promise(
-                (resolve,reject) => {
-                    qstring = "CALL sp_get_nonindi_candidates()";
-                    cq.queryDBAsPromise(db,qstring,resolve,reject);
-                });
-        var p2 = new Promise(
-                (resolve,reject) => {
-                    qstring = "CALL sp_get_indi_candidates()";
-                    cq.queryDBAsPromise(db,qstring,resolve,reject);
-                });
-        
-        return [p1,p2];
     }
 
 }

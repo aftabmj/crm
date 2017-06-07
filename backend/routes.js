@@ -5,7 +5,7 @@ var express = require('express'),
 
 var router = express.Router();
 router.use(excors({
-    allowedOrigins: [ 'http://localhost:8082', 'http://frontend-mjcoder.c9users.io:8080','http://frontend-mjcoder.c9users.io:8081'] 
+    allowedOrigins: [ 'http://localhost:8081', 'http://frontend-mjcoder.c9users.io:8080','http://frontend-mjcoder.c9users.io:8081'] 
     //, maxAge : 2*60
 }));
 
